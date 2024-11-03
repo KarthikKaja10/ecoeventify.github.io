@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoEventify - Event Selection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0d47a1, #00e676); /* Gradient background */
+            color: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(26, 26, 26, 0.9); /* Semi-transparent dark background */
+            color: #00e676;
+            padding: 1.5rem 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 2rem;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 6rem; /* Adjusted for fixed header */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .card {
+            background: #1a1a1a;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 300px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .card h2 {
+            color: #00e676;
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 0.5rem 0 1rem;
+            border: 2px solid #00e676;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .card-btn {
+            background: linear-gradient(135deg, #00e676, #00796b);
+            color: #1a1a1a;
+            font-weight: bold;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.4s, transform 0.4s;
+            width: 100%;
+        }
+
+        .card-btn:hover {
+            background: linear-gradient(135deg, #00796b, #00e676);
+            box-shadow: 0 4px 10px rgba(0, 255, 127, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .sub-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .sub-btn {
+            background-color: #333;
+            color: #f1f1f1;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-btn:hover {
+            background-color: #00e676;
+            color: #1a1a1a;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                width: 90%;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><i class="fas fa-leaf"></i> EcoEventify</h1>
+</header>
+
+<div class="container">
+    <!-- Menu Section -->
+    <div class="card">
+        <h2><i class="fas fa-utensils"></i> Menu</h2>
+        <p>Manage your event’s menu, engagement, and venue descriptions.</p>
+        <button onclick="toggleSection('menu-options')" class="card-btn">Select Options</button>
+
+        <div id="menu-options" class="sub-section hidden">
+            <button class="sub-btn" onclick="toggleSubSection('menu-show-venues')"><i class="fas fa-calendar-alt"></i> Show Events</button>
+            <button class="sub-btn" onclick="toggleSubSection('menu-description')"><i class="fas fa-info-circle"></i> Event Description</button>
+            <button class="sub-btn" onclick="toggleSubSection('menu-engagement')"><i class="fas fa-map-marker-alt"></i> Event Venues</button>
+            
+            <div id="menu-show-venues" class="sub-section hidden">
+                <p>Marriages <input type="checkbox" id="marriage" name="marriage">
+                   Birthdays <input type="checkbox" id="birthdays" name="birthdays">
+                   Engagements <input type="checkbox" id="engagements" name="engagements">
+                </p>
+            </div>
+            <div id="menu-description" class="sub-section hidden">
+                <p>We aim for providing you with the event you would love taking care of your own ideas as well as the environment, Sustainability is our top priority
+                    " Make you and your brides day special, stay delighted and delight the nature"
+                </p>
+            </p>
+                    " Why not celebrate your Birthday with NATURE??"</p>
+
+
+        </p>" Bound yourself with your partner in a relation under a pleasant nature!, it's not just about the nature"</p>
+
+                </p>
+            </div>
+            <div id="menu-engagement" class="sub-section hidden">
+                <p>We Provide Sustainable Venues which you can select accordingly, we make sure to manage the best event you would have ever seen</p>
+            </div>
+        </div>
+    </div><!-- Booking Section -->
+    <div class="card">
+        <h2><i class="fas fa-ticket-alt"></i> Booking</h2>
+        <p>Book a venue, specify guest count, and choose decorations.</p>
+        <button onclick="toggleSection('booking-options')" class="card-btn">Select Options</button>
+    
+        <div id="booking-options" class="sub-section hidden">
+            <!-- Guest Count Selection -->
+            <button class="sub-btn" onclick="toggleSubSection('booking-guest-count')"><i class="fas fa-users"></i> Guest Count</button>
+            <div id="booking-guest-count" class="sub-section hidden">
+                <p>Choose the number of guests for your event:</p>
+                <select id="guest-count" name="guest-count" class="dropdown">
+                    <option value="" disabled selected>Select number of guests</option>
+                    <option value="under50">Under 50</option>
+                    <option value="50-100">50-100</option>
+                    <option value="100-200">100-200</option>
+                    <option value="200-300">200-300</option>
+                    <option value="300plus">300+</option>
+                </select>
+            </div>
+    
+            <!-- Decorations Selection -->
+            <button class="sub-btn" onclick="toggleSubSection('booking-decorations')"><i class="fas fa-gem"></i> Decorations</button>
+            <div id="booking-decorations" class="sub-section hidden">
+                <p>Select decoration themes and items:</p>
+                <!-- Decoration options can go here -->
+            </div>
+    
+            <!-- Venue Selection -->
+            <button class="sub-btn" onclick="toggleSubSection('booking-venue-selection')"><i class="fas fa-building"></i> Venue Selection</button>
+            <div id="booking-venue-selection" class="sub-section hidden">
+                <p>Select a venue for your event:</p>
+                <select id="venue-selection" name="venue-selection" class="dropdown">
+                    <option value="" disabled selected>Select a venue</option>
+                    <option value="garden">Garden</option>
+                    <option value="banquet-hall">Banquet Hall</option>
+                    <option value="beach">Beach</option>
+                    <option value="rooftop">Rooftop</option>
+                    <option value="ballroom">Ballroom</option>
+                    <option value="conference-center">Conference Center</option>
+                </select>
+                <button class="sub-btn" onclick="toggleSubSection('booking-payment')"><i class="fas fa-credit-card"></i> Payment</button>
+        <div id="booking-payment" class="sub-section hidden">
+            <p>Enter your payment details:</p>
+            <label for="card-number">Card Number:</label>
+            <input type="text" id="card-number" name="card-number" class="input-field" placeholder="1234 5678 9012 3456" required>
+            <label for="expiry-date">Expiry Date:</label>
+            <input type="text" id="expiry-date" name="expiry-date" class="input-field" placeholder="MM/YY" required>
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" class="input-field" placeholder="123" required>
+            <button class="btn-submit" type="submit">Submit Payment</button>
+        </div>
+            </div>
+        </div>
+    </div>
+    <!-- Confirm Booking Section -->
+<div class="card">
+    <h2><i class="fas fa-check-circle"></i> Confirm Booking</h2>
+    <p>Review and confirm your event booking details.</p>
+    <button onclick="toggleSection('confirm-booking-options')" class="card-btn">Proceed to Confirm</button>
+
+    <div id="confirm-booking-options" class="sub-section hidden">
+        <button class="sub-btn" onclick="alert('Booking confirmed! Thank you.')"><i class="fas fa-thumbs-up"></i> Confirm Booking</button>
+        <button class="sub-btn" onclick="alert('Booking canceled. We hope to see you again!')"><i class="fas fa-times"></i> Cancel Booking</button>
+    </div>
+</div>
+
+<!-- Subscription Section -->
+<div class="card">
+    <h2><i class="fas fa-envelope"></i> Subscription</h2>
+    <p>Choose a subscription plan to receive event updates, offers, and eco-friendly tips.</p>
+    <button onclick="toggleSection('subscription-options')" class="card-btn">Select Subscription</button>
+
+    <div id="subscription-options" class="sub-section hidden">
+        <button class="sub-btn" onclick="toggleSubSection('subscription-basic')"><i class="fas fa-leaf"></i> Basic Subscription</button>
+        <div id="subscription-basic" class="sub-section hidden">
+            <p>Receive monthly updates and event ideas.</p>
+            <button onclick="alert('Basic subscription selected!')">Choose Basic</button>
+        </div>
+
+        <button class="sub-btn" onclick="toggleSubSection('subscription-premium')"><i class="fas fa-crown"></i> Premium Subscription</button>
+        <div id="subscription-premium" class="sub-section hidden">
+            <p>Get exclusive access to eco-event tips, venue discounts, and more.</p>
+            <button onclick="alert('Premium subscription selected!')">Choose Premium</button>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <h2><i class="fas fa-question-circle"></i> Help</h2>
+    <p>Get assistance with your event planning and payment options. We’re here to help!</p>
+    <button onclick="toggleSection('help-options')" class="card-btn">Get Help</button>
+
+    <div id="help-options" class="sub-section hidden">
+        <!-- Contact Details -->
+        <div id="contact-details" class="sub-section">
+            <h3><i class="fas fa-phone"></i> Contact Us</h3>
+            <p>Phone: +91-8309385694</p>
+            <p>Email: support@ecoeventify.com</p>
+        </div>
+        
+        <!-- Offline Payment Options -->
+        <div id="offline-payment" class="sub-section">
+            <h3><i class="fas fa-money-bill-wave"></i> Offline Payment</h3>
+            <p>For offline payments, visit our store or make a bank transfer:</p>
+            <p>Bank Account: EcoEventify Services</p>
+            <p>Account Number: 1234567890</p>
+            <p>Bank: Vijayawada Bank, Main Branch</p>
+        </div>
+
+        <!-- Store Location -->
+        <div id="store-location" class="sub-section">
+            <h3><i class="fas fa-map-marker-alt"></i> Store Location</h3>
+            <p>EcoEventify Headquarters</p>
+            <p>EcoEventify Office,Kala Nagar,Benz Circle</p>
+            <p> Vijayawada City-521178</p>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Quote Section -->
+<div class="quote-section">
+    <blockquote>
+        <p>"Sustainable events are not just about reducing footprints but about leaving positive imprints on our planet."</p>
+        <footer>- Peter Drucker</footer>
+    </blockquote>
+</div>
+
+<!-- Styles for Quote Section -->
+<style>
+    .quote-section {
+        background-color: #1a1a1a; /* Dark background */
+        color: #f1f1f1; /* Light text for contrast */
+        padding: 2rem;
+        margin: 2rem auto;
+        text-align: center;
+        max-width: 800px; /* Control width for readability */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .quote-section blockquote {
+        font-size: 1.5rem; /* Larger font for quote */
+        font-style: italic;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .quote-section p {
+        color: #00e676; /* Bright green for the quote text */
+        margin-bottom: 1rem;
+    }
+
+    .quote-section footer {
+        font-size: 1rem;
+        color: #ccc; /* Light gray for author text */
+        font-style: normal;
+    }
+
+    @media (max-width: 768px) {
+        .quote-section blockquote {
+            font-size: 1.2rem; /* Smaller font size for mobile */
+        }
+    }
+</style>
+
+    
+<!-- Team Composition Section -->
+<div class="container team-container">
+    <div class="card team-member">
+        <h3><i class="fas fa-user-tie"></i> CEO: Karthik Kaja</h3>
+        <p>Karthik is an expert in event management with over 10 years of experience. His vision is to create unforgettable experiences for our clients, focusing on innovation and client satisfaction.</p>
+    </div>
+
+    <div class="card team-member">
+        <h3><i class="fas fa-chart-line"></i> CFO: Furkhan Abdul Raheem</h3>
+        <p>Furkhan brings financial expertise and strategic planning to ensure the sustainability of our operations and success in every project, driving financial growth and stability.</p>
+    </div>
+
+    <div class="card team-member">
+        <h3><i class="fas fa-laptop-code"></i> CTO: Guddeti Harshita</h3>
+        <p>Harshita leads our technology initiatives, ensuring we stay ahead with innovative solutions for event management and customer engagement, bringing efficiency and creativity to our platform.</p>
+    </div>
+</div>
+
+<!-- Additional Styles for Team Section -->
+<style>
+    .team-container {
+        display: flex;
+        gap: 2rem; /* Spacing between team members */
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .team-member {
+        width: 100%;
+        max-width: 300px; /* Control width of each team card */
+        text-align: center;
+        color: #ccc; /* Light gray for team text */
+    }
+
+    .team-member h3 {
+        color: #00e676; /* Bright green for team titles */
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+    }
+
+    .team-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #00e676; /* Green border for team images */
+        margin: 0.5rem 0;
+    }
+
+    .team-member p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .team-container {
+            flex-direction: column; /* Stack cards vertically on smaller screens */
+            align-items: center;
+        }
+    }
+</style>
+
+
+
+<footer>
+    <p>&copy; 2024 EcoEventify. All rights reserved.</p>
+</footer>
+
+<script>
+    function toggleSection(id) {
+        document.getElementById(id).classList.toggle('hidden');
+    }
+
+    function toggleSubSection(id) {
+        document.getElementById(id).classList.toggle('hidden');
+    }
+</script>
+
+
+<script src="https://static.app/js/static.js" type="text/javascript"></script>
+</body>
+</html>
